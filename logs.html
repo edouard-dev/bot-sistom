@@ -72,7 +72,7 @@
 
   <script>
     const logsDiv = document.getElementById('logs');
-    const socket = io('http://localhost:3001');
+    const socket = io('http://162.19.76.103:3001');
 
     socket.on('log', (message) => {
       const log = document.createElement('div');
