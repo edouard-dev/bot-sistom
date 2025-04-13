@@ -4,7 +4,12 @@ let io = null;
 let logSocket = null;
 
 const initLogs = (server) => {
-    io = new Server(server);
+    io = new Server(server, {
+        cors: {
+            origin: "*",  // Permet à toutes les origines d'accéder au serveur WebSocket
+            methods: ["GET", "POST"]
+        }
+    });
 
     io.on("connection", (socket) => {
         logSocket = socket;
