@@ -48,8 +48,8 @@ const start = async (user, mdp) => {
 app.post('/start-script', async (req, res) => {
   log('Démarrage du script');
   log('Lancement pour Thomas ...');
-  await start('T.HAMON', 'aeDEj429');
-  log('Lancement pour Oscar ...');
-  await start('O.GAL', '22GLxw2q');
+  // await start('T.HAMON', 'aeDEj429');
+  // log('Lancement pour Oscar ...');
+  // await start('O.GAL', '22GLxw2q');
   res.json({ status: 'Script lancé' });
 });
