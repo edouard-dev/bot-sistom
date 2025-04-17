@@ -28,7 +28,7 @@ server.listen(3001, () => console.log('Serveur WebSocket et fichier HTML disponi
 const start = async (user, mdp) => {
   try {
     browserInstance = await puppeteer.launch({
-      headless: false,
+      headless: true,
       args: ['--no-sandbox', '--disable-setuid-sandbox'],
     });
     const page = await browserInstance.newPage();
