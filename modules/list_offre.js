@@ -76,6 +76,8 @@ const publish = async (page) => {
   await page.mouse.click(518, 307);
   await delay(1000);
   await page.mouse.click(729, 188);
+  await delay(1000);
+
   log("Offre publié")
 }
 
@@ -122,6 +124,7 @@ const list_offre = async (user, page) => {
       const elements = document.querySelectorAll('.jqTableColAdresse a');
       return Array.from(elements).map(element => element.href); // Récupérer les liens directement
     });
+    await delay(1000); // Délai de 5 secondes avant de vérifier la div
 
     log("Éléments sélectionnés :", selectElements);
 
