@@ -65,11 +65,18 @@ const modifySurface = async (page) => {
 const publish = async (page) => {
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   await page.mouse.click(500, 282);
+  await delay(1000); // Attendre un peu après le scroll
+
   await page.mouse.click(500, 310);
+  await delay(1000); // Attendre un peu après le scroll
+
   await page.mouse.click(500, 282);
+  await delay(1000); // Attendre un peu après le scroll
+
   await page.mouse.click(518, 307);
   await delay(1000);
   await page.mouse.click(729, 188);
+  log("Offre publié")
 }
 
 
@@ -130,38 +137,61 @@ const list_offre = async (user, page) => {
       });
 
       await newPage.mouse.click(175, 222);
-      await delay(1000);
+      await delay(5000);
       log("Annonce désactivé");
       await newPage.mouse.click(145, 190);
+      await delay(2000);
+
       await newPage.mouse.click(45, 107);
+      await delay(2000);
+
       await newPage.mouse.click(45, 127);
+      await delay(2000);
+
       await newPage.mouse.click(45, 207);
+      await delay(2000);
+
       await newPage.mouse.click(45, 227);
+      await delay(2000);
+
       await newPage.mouse.click(45, 240);
+      await delay(2000);
+
       await newPage.mouse.click(88, 346);
       await delay(1000);
       await newPage.mouse.click(204, 189);
+      await delay(2000);
+
       await newPage.mouse.click(252, 300);
       await delay(1000);
       await newPage.mouse.click(369, 273);
+      await delay(2000);
+
       await newPage.mouse.click(348, 322);
+      await delay(1000);
+
       await newPage.mouse.click(380, 473);
       await delay(1000);
 
-
+      log("Modification Surface ...")
       await modifySurface(newPage)
       await delay(1000); // Attendre un peu après le scroll
-
+      log("Switch Image ...")
       await switchImage(newPage)
+      await delay(2000); // Attendre un peu après le scroll
+
       await newPage.evaluate(() => {
         window.scrollTo(0, 200); // Scroller vers le bas de la page
       });
+      await delay(2000);
+
       await newPage.mouse.click(398, 564);
       await delay(1000); // Attendre un peu après le scroll
-      await publish(newPage)
-      log(`Offre ${i + 1 } sur ${selectElements.length}`)
-      await newPage.close();
+      log("Publication ...")
 
+      await publish(newPage)
+      newPage.close()
+      log(`Offre ${i + 1 } sur ${selectElements.length}`)
     }
   } catch (error) {
     log(`Une erreur s'est produite : ${error.message}`);

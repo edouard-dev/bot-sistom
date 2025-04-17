@@ -24,7 +24,7 @@
       text-align: center;
     }
 
-    #startBtn {
+    .btn {
       background-color: #4f46e5;
       border: none;
       border-radius: 8px;
@@ -36,10 +36,17 @@
       transition: background-color 0.2s ease-in-out;
       box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
       margin-bottom: 20px;
+      margin-right: 10px;
     }
 
-    #startBtn:hover {
+    .btn:hover {
       background-color: #4338ca;
+    }
+
+    #buttons {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
     }
 
     #logs {
@@ -66,7 +73,10 @@
 <body>
   <h1>Bot Sistom</h1>
 
-  <button id="startBtn">Lancer le script</button>
+  <div id="buttons">
+    <button id="startBtn" class="btn">Lancer le script</button>
+    <button id="stopBtn" class="btn" style="background-color:#ef4444;">Arrêter le script</button>
+  </div>
 
   <div id="logs"></div>
 
@@ -84,6 +94,14 @@
 
     document.getElementById('startBtn').addEventListener('click', () => {
       fetch('/start-script', { method: 'POST' })
+        .then(res => res.json())
+        .then(data => {
+          console.log(data.status);
+        });
+    });
+
+    document.getElementById('stopBtn').addEventListener('click', () => {
+      fetch('/stop-script', { method: 'POST' })
         .then(res => res.json())
         .then(data => {
           console.log(data.status);

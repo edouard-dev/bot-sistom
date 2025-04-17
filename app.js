@@ -27,18 +27,18 @@ server.listen(3001, () => console.log('Serveur WebSocket et fichier HTML disponi
 // Script principal avec Puppeteer
 const start = async (user, mdp) => {
   try {
-    const browser = await puppeteer.launch({
-      headless: true,
+    browserInstance = await puppeteer.launch({
+      headless: false,
       args: ['--no-sandbox', '--disable-setuid-sandbox'],
     });
-    const page = await browser.newPage();
+    const page = await browserInstance.newPage();
 
     log('Ouverture de la page de connexion...');
     await page.goto('https://visualqie.com/login.php', { waitUntil: 'domcontentloaded' });
 
     log('Connexion en cours...');
     await connexion(page, user, mdp);
-    await list_offre(user, page)
+    await list_offre(user, page);
     log(`Script terminé pour ${user}.`);
   } catch (err) {
     log(`Une erreur s'est produite : ${err.message}`);
@@ -53,3 +53,15 @@ app.post('/start-script', async (req, res) => {
   await start('O.GAL', '22GLxw2q');
   res.json({ status: 'Script lancé' });
 });
+
+app.post('/stop-script', async (req, res) => {
+  if (browserInstance) {
+    await browserInstance.close();
+    log('Script arrêté manuellement.');
+    browserInstance = null;
+    res.json({ status: 'Script arrêté' });
+  } else {
+    res.json({ status: 'Aucun script en cours' });
+  }
+});
+
